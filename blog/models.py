@@ -2,11 +2,15 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 # Create your models here.
+
+
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(status='published')
+
 
 class Post(models.Model):
     STATUS_CHOICES = (
@@ -24,6 +28,7 @@ class Post(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
     objects = models.Manager()
     published = PublishedManager()
+    tags = TaggableManager()
 
     class Meta:
         ordering = ('-publish',)
@@ -39,7 +44,8 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE,
+    post = models.ForeignKey(Post,
+                             on_delete=models.CASCADE,
                              related_name='comments')
     name = models.CharField(max_length=80)
     email = models.EmailField()
