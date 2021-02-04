@@ -37,6 +37,7 @@ DEBUG = env.bool("DEBUG")
 
 
 # Application definition
+SITE_ID = 1
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
 
     'blog.apps.BlogConfig',
     'taggit',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
