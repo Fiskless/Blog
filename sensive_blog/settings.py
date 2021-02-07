@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DATABASE_NAME = os.getenv("DATABASE_NAME")
+PASSWORD_DB = os.getenv("PASSWORD_DB")
 
 DEBUG = env.bool("DEBUG")
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'taggit',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'django.contrib.postgres',
 ]
 
 MIDDLEWARE = [
@@ -89,8 +90,10 @@ WSGI_APPLICATION = 'sensive_blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / DATABASE_NAME,
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'blog',
+        'USER': 'blog',
+        'PASSWORD': PASSWORD_DB,
     }
 }
 
